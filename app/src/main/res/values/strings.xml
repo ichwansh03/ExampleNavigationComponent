@@ -53,4 +53,10 @@
     <string name="back_to_login">Back to login</string>
     <string name="forgot_password_fragment">Forgot Password Fragment</string>
     <string name="title_activity_test">TestActivity</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
+    <string name="setting">Setting</string>
+    <string name="home_fragment">Home Fragment</string>
+    <string name="profile_fragment">Profile Fragment</string>
+    <string name="setting_fragment">Setting Fragment</string>
 </resources>
