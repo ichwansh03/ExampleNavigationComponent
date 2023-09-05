@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.ichwan.arch.navigationcomponent.authentication.RegisterFragment"
+        android:label="fragment_register"
+        tools:layout="@layout/fragment_register">
+        <action
+            android:id="@+id/register_to_menu"
+            app:destination="@id/nav_menu" />
+        <action
+            android:id="@+id/register_to_login"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.ichwan.arch.navigationcomponent.authentication.ForgotPasswordFragment"
+        android:label="fragment_forgot_password"
+        tools:layout="@layout/fragment_forgot_password" >
+        <action
+            android:id="@+id/forgot_to_login"
+            app:destination="@id/loginFragment" />
+    </fragment>
+
+    <include app:graph="@navigation/nav_menu" />
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.ichwan.arch.navigationcomponent.authentication.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login">
+        <action
+            android:id="@+id/login_to_register"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/login_to_forgot"
+            app:destination="@id/forgotPasswordFragment" />
+        <action
+            android:id="@+id/login_to_menu"
+            app:destination="@id/nav_menu" />
+    </fragment>
+</navigation>
