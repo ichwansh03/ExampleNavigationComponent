@@ -7,11 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.ichwan.arch.navigationcomponent.R
-import com.ichwan.arch.navigationcomponent.databinding.FragmentRegisterBinding
+import com.ichwan.arch.navigationcomponent.databinding.FragmentLoginBinding
 
-class RegisterFragment : Fragment() {
+class LoginFragment : Fragment() {
 
-    private var _binding: FragmentRegisterBinding? = null
+    private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -19,7 +19,7 @@ class RegisterFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentRegisterBinding.inflate(inflater, container, false)
+        _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -28,12 +28,16 @@ class RegisterFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.apply {
-            buttonRegister.setOnClickListener {
-                findNavController().navigate(R.id.register_to_menu)
+            buttonLogin.setOnClickListener {
+                findNavController().navigate(R.id.login_to_menu)
             }
 
-            buttonToLogin.setOnClickListener {
-                findNavController().navigate(R.id.register_to_login)
+            buttonRegister.setOnClickListener {
+                findNavController().navigate(R.id.login_to_register)
+            }
+
+            txForgot.setOnClickListener {
+                findNavController().navigate(R.id.login_to_forgot)
             }
         }
     }
