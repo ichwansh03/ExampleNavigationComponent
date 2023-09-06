@@ -2,9 +2,9 @@ package com.ichwan.arch.navigationcomponent.menu
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.PopupMenu
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
 import com.ichwan.arch.navigationcomponent.R
 import com.ichwan.arch.navigationcomponent.databinding.ActivityMainBinding
 
@@ -19,9 +19,20 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.mainContainerView) as NavHostFragment
-
         navController = navHostFragment.navController
 
-        NavigationUI.setupWithNavController(binding.bottomNav, navController)
+        setupSmoothBottomMenu()
+    }
+
+    private fun setupSmoothBottomMenu() {
+        val popupMenu = PopupMenu(this, null)
+        popupMenu.inflate(R.menu.main_menu)
+        val menu = popupMenu.menu
+
+        binding.bottomNav.setupWithNavController(menu, navController)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 }
