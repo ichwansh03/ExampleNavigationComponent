@@ -59,4 +59,5 @@
     <string name="home_fragment">Home Fragment</string>
     <string name="profile_fragment">Profile Fragment</string>
     <string name="setting_fragment">Setting Fragment</string>
+    <string name="send_data">SEND DATA</string>
 </resources>
