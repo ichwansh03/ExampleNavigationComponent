@@ -1,15 +1,20 @@
 package com.ichwan.arch.navigationcomponent.appscomponent
 
 import android.content.Intent
+import android.content.IntentFilter
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.ichwan.arch.navigationcomponent.R
+import com.ichwan.arch.navigationcomponent.broadcastservice.AirplaneModeChangeReceiver
 import com.ichwan.arch.navigationcomponent.databinding.ActivityActionBinding
 
 class ActionActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityActionBinding
+
+    private val airplaneModeChangeReceiver = AirplaneModeChangeReceiver()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityActionBinding.inflate(layoutInflater)
@@ -29,10 +34,13 @@ class ActionActivity : AppCompatActivity() {
             startActivity(send)
         }
 
+        registerReceiver(airplaneModeChangeReceiver, IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED))
+
     }
 
     override fun onStart() {
         super.onStart()
+        unregisterReceiver(airplaneModeChangeReceiver)
         Toast.makeText(this, "OnStart", Toast.LENGTH_SHORT).show()
     }
 
