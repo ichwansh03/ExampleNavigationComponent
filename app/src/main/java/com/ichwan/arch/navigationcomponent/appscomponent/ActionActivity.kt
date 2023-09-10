@@ -2,12 +2,14 @@ package com.ichwan.arch.navigationcomponent.appscomponent
 
 import android.content.Intent
 import android.content.IntentFilter
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.ichwan.arch.navigationcomponent.R
+import androidx.core.app.ActivityCompat
 import com.ichwan.arch.navigationcomponent.broadcastservice.AirplaneModeChangeReceiver
 import com.ichwan.arch.navigationcomponent.databinding.ActivityActionBinding
+import com.ichwan.arch.navigationcomponent.service.ForegroundService
 
 class ActionActivity : AppCompatActivity() {
 
@@ -20,18 +22,38 @@ class ActionActivity : AppCompatActivity() {
         binding = ActivityActionBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
+            ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 0)
+        }
+
         Toast.makeText(this, "OnCreate", Toast.LENGTH_SHORT).show()
 
         val textMessage= "Hello World!"
 
-        binding.sendButton.setOnClickListener{
-            val send = Intent().apply {
-                action = Intent.ACTION_SEND
-                type = "text/plain"
-                putExtra(Intent.EXTRA_TEXT, textMessage)
+        binding.apply {
+            sendButton.setOnClickListener{
+                val send = Intent().apply {
+                    action = Intent.ACTION_SEND
+                    type = "text/plain"
+                    putExtra(Intent.EXTRA_TEXT, textMessage)
+                }
+
+                startActivity(send)
             }
 
-            startActivity(send)
+            startButton.setOnClickListener {
+                Intent(applicationContext, ForegroundService::class.java).also {
+                    it.action = ForegroundService.Actions.START.toString()
+                    startService(it)
+                }
+            }
+
+            stopButton.setOnClickListener {
+                Intent(applicationContext, ForegroundService::class.java).also {
+                    it.action = ForegroundService.Actions.STOP.toString()
+                    startService(it)
+                }
+            }
         }
 
         registerReceiver(airplaneModeChangeReceiver, IntentFilter(Intent.ACTION_AIRPLANE_MODE_CHANGED))
